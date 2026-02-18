@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Riya DevOps Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:40px;
+  background:rgba(0,0,0,0.4);
+  box-shadow:0 2px 10px rgba(0,0,0,0.5);
+}
+
+h1{
+  margin:0;
+  font-size:40px;
+}
+
+.container{
+  padding:40px 20px;
+}
+
+.card{
+  background:white;
+  color:#333;
+  padding:25px;
+  margin:20px auto;
+  border-radius:12px;
+  width:80%;
+  max-width:500px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:#2c5364;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1b3b4a;
+}
+
+footer{
+  margin-top:40px;
+  padding:20px;
+  background:rgba(0,0,0,0.5);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 DevOps Demo Project</h1>
+  <p>Created by Riya</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+  <h2>About Project</h2>
+  <p>This is a sample website deployed using GitHub + Jenkins CI/CD pipeline.</p>
+</div>
+
+<div class="card">
+  <h2>Technologies Used</h2>
+  <p>HTML • CSS • Git • GitHub • Jenkins</p>
+</div>
+
+<div class="card">
+  <h2>Pipeline Status</h2>
+  <p id="status">Ready to Deploy 🚀</p>
+  <button onclick="deploy()">Run Deployment</button>
+</div>
+
+</div>
+
+<footer>
+  DevOps Practice Project | 2026
+</footer>
+
+<script>
+function deploy(){
+ document.getElementById("status").innerHTML="Deployment Triggered ✅";
+}
+</script>
+
+</body>
+</html>
