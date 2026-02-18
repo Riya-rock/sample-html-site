@@ -1,108 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Riya DevOps Demo</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Riya • CI/CD Deployment</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#111a33;
+      --card:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.14);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, #6d28d9 0%, transparent 60%),
+        radial-gradient(800px 520px at 80% 20%, #06b6d4 0%, transparent 55%),
+        radial-gradient(900px 600px at 50% 90%, #f97316 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{
+      width:min(980px, 92vw);
+      padding:28px;
+    }
+    .card{
+      position:relative;
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .glow{
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(closest-side, rgba(255,255,255,.16), transparent 70%);
+      filter: blur(18px);
+      opacity:.55;
+      pointer-events:none;
+    }
+    header{
+      padding:34px 34px 18px;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+      font-size:14px;
+      color:var(--muted);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:#22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,.16);
+    }
+    h1{
+      margin:8px 0 6px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing:-.02em;
+      line-height:1.08;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.6vw, 16px);
+      line-height:1.6;
+      max-width: 62ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+      padding: 0 34px 34px;
+    }
+    .panel{
+      grid-column: span 6;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size:16px;
+      color:rgba(255,255,255,.88);
+    }
+    .kv{
+      display:grid;
+      gap:10px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      font-size:14px;
+      color:var(--muted);
+    }
+    .row b{ color: rgba(255,255,255,.92); font-weight:600;}
+    .actions{
+      grid-column: span 12;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding-top:6px;
+    }
+    .btns{ display:flex; gap:10px; flex-wrap:wrap;}
+    a.btn{
+      text-decoration:none;
+      color: rgba(255,255,255,.92);
+      font-weight:600;
+      padding:11px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      transition: transform .12s ease, background .12s ease;
+    }
+    a.btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .foot{
+      color: rgba(255,255,255,.62);
+      font-size: 13px;
+    }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
-<style>
-body{
-  margin:0;
-  font-family:Segoe UI, sans-serif;
-  background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-}
-
-header{
-  padding:40px;
-  background:rgba(0,0,0,0.4);
-  box-shadow:0 2px 10px rgba(0,0,0,0.5);
-}
-
-h1{
-  margin:0;
-  font-size:40px;
-}
-
-.container{
-  padding:40px 20px;
-}
-
-.card{
-  background:white;
-  color:#333;
-  padding:25px;
-  margin:20px auto;
-  border-radius:12px;
-  width:80%;
-  max-width:500px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.4);
-  transition:0.3s;
-}
-
-.card:hover{
-  transform:scale(1.05);
-}
-
-button{
-  padding:12px 25px;
-  border:none;
-  border-radius:25px;
-  background:#2c5364;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#1b3b4a;
-}
-
-footer{
-  margin-top:40px;
-  padding:20px;
-  background:rgba(0,0,0,0.5);
-}
-</style>
+    @media (max-width: 720px){
+      header, .grid{ padding-left:18px; padding-right:18px;}
+      .panel{ grid-column: span 12; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="card">
+      <div class="glow"></div>
 
-<header>
-  <h1>🚀 DevOps Demo Project</h1>
-  <p>Created by Riya</p>
-</header>
+      <header>
+        <span class="badge"><span class="dot"></span> Deployment Live • Jenkins → EC2</span>
+        <div style="flex:1 1 320px">
+          <h1>CI/CD Deployment Demo</h1>
+          <p class="sub">
+            This page was deployed automatically to an AWS EC2 server using Jenkins.
+            Clean pipeline, repeatable deployment, and production-style setup.
+          </p>
+        </div>
+      </header>
 
-<div class="container">
+      <section class="grid">
+        <div class="panel">
+          <h3>Build Details</h3>
+          <div class="kv">
+            <div class="row"><span>Owner</span><b>Riya Mhatre</b></div>
+            <div class="row"><span>Environment</span><b>EC2 (Amazon Linux)</b></div>
+            <div class="row"><span>Web Server</span><b>Nginx</b></div>
+            <div class="row"><span>Deployed At</span><b id="time" class="mono">—</b></div>
+          </div>
+        </div>
 
-<div class="card">
-  <h2>About Project</h2>
-  <p>This is a sample website deployed using GitHub + Jenkins CI/CD pipeline.</p>
-</div>
+        <div class="panel">
+          <h3>Pipeline Flow</h3>
+          <div class="kv">
+            <div class="row"><span>1) Source</span><b>GitHub</b></div>
+            <div class="row"><span>2) Build</span><b>Jenkins (Windows)</b></div>
+            <div class="row"><span>3) Transfer</span><b>SSH + SCP</b></div>
+            <div class="row"><span>4) Deploy</span><b>Nginx HTML directory</b></div>
+          </div>
+        </div>
 
-<div class="card">
-  <h2>Technologies Used</h2>
-  <p>HTML • CSS • Git • GitHub • Jenkins</p>
-</div>
+        <div class="actions">
+          <div class="btns">
+            <a class="btn" href="#" onclick="location.reload();return false;">Refresh Status</a>
+            <a class="btn" href="https://www.jenkins.io/" target="_blank" rel="noreferrer">Jenkins Docs</a>
+            <a class="btn" href="https://aws.amazon.com/ec2/" target="_blank" rel="noreferrer">EC2</a>
+          </div>
+          <div class="foot">
+            Tip: Change code → Commit → Push → Build Now → See update on this page ✅
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 
-<div class="card">
-  <h2>Pipeline Status</h2>
-  <p id="status">Ready to Deploy 🚀</p>
-  <button onclick="deploy()">Run Deployment</button>
-</div>
-
-</div>
-
-<footer>
-  DevOps Practice Project | 2026
-</footer>
-
-<script>
-function deploy(){
- document.getElementById("status").innerHTML="Deployment Triggered ✅";
-}
-</script>
-
+  <script>
+    // Shows local time on the client (nice for demos)
+    const now = new Date();
+    document.getElementById("time").textContent =
+      now.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "medium" });
+  </script>
 </body>
 </html>
+
